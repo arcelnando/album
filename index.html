@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#0b0f14">
+  <title>𝑻𝑹𝑰𝑪𝑲𝑺𝑻𝑬𝑹 𝑴𝑬𝑴𝑶𝑹𝒀 — Album Foto</title>
+  <meta name="description" content="Album unggah foto TRICKSTER MEMORY — unggah, simpan (lokal), lihat, dan kelola.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --bg: #0b0f14; --card:#0f141b; --muted:#8b9bb0; --accent:#7c3aed; }
+    body { font-family: 'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; -webkit-tap-highlight-color: transparent; }
+    .glass { backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.07); }
+    .gradient-text { background: linear-gradient(90deg,#a78bfa,#22d3ee,#34d399,#f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .grid-auto { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.02); }
+    .dropzone-dashed { border: 2px dashed rgba(255,255,255,0.12); }
+    .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); }
+    .modal-content { background-color: var(--card); margin: 10% auto; padding: 20px; border: 1px solid rgba(255,255,255,0.1); width: 300px; border-radius: 12px; }
+    .btn-android { padding: 14px 16px; border-radius: 16px; font-size: 16px; touch-action: manipulation; }
+    .input-android { padding: 16px; border-radius: 16px; font-size: 16px; min-height: 52px; }
+    .select-android { padding: 16px; border-radius: 16px; font-size: 16px; min-height: 52px; }
+    
+    /* Better touch targets for mobile */
+    button, label, input[type="button"], input[type="submit"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Prevent zoom on input focus */
+    @media screen and (max-width: 768px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
+    
+    /* Improved scrolling */
+    .gallery-grid {
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 80px;
+    }
+    
+    /* Bottom navigation bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 12px;
+      z-index: 40;
+    }
+  </style>
+</head>
+<body class="h-full bg-[var(--bg)] text-white">
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0f14e6] backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-2xl bg-white/10 grid place-items-center overflow-hidden">
+        <img src="https://i.ibb.co.com/vx96S5bR/fc7f58b5-60f7-446c-b483-e92e1b2e04bd.jpg" alt="Logo" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-1">
+        <h1 class="text-xl sm:text-2xl font-bold tracking-wide gradient-text">𝑻𝑹𝑰𝑪𝑲𝑺𝑻𝑬𝑹 𝑴𝑬𝑴𝑶𝑹𝒀</h1>
+        <p class="text-xs text-[var(--muted)] hidden sm:block">Album foto modern. Unggah • Simpan (perangkat Anda) • Bagikan lokal.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btnExport" class="px-3 py-2 text-sm rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hidden sm:block">Ekspor .zip</button>
+        <label class="px-3 py-2 text-sm rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 cursor-pointer" for="fileInput">Tambah</label>
+        <input id="fileInput" type="file" accept="image/*" multiple class="hidden" />
+      </div>
+    </div>
+  </header>
+  
+  <main class="mx-auto max-w-7xl px-4 pb-24">
+    <!-- Toolbar -->
+    <section class="mt-6 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+      <div class="flex-1 flex items-center gap-2">
+        <input id="search" type="search" placeholder="Cari nama atau catatan…" class="input-android w-full bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-violet-500" />
+        <select id="sort" class="select-android bg-white/5 border border-white/10 hidden sm:block">
+          <option value="newest">Terbaru</option>
+          <option value="oldest">Terlama</option>
+          <option value="name">Nama (A→Z)</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btnImport" class="btn-android bg-white/5 hover:bg-white/10 border border-white/10 hidden sm:block">Impor .zip</button>
+        <button id="btnClear" class="btn-android bg-white/5 hover:bg-white/10 border border-rose-400/30 text-rose-300">Hapus Semua</button>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="mt-6 grid gap-4 grid-auto gallery-grid" id="gallery"></section>
+  </main>
+  
+  <!-- Bottom Navigation for Mobile -->
+  <div class="bottom-nav sm:hidden">
+    <div class="flex justify-around">
+      <label for="fileInput" class="flex flex-col items-center text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>Tambah</span>
+      </label>
+      <button id="mobileExport" class="flex flex-col items-center text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        <span>Ekspor</span>
+      </button>
+      <button id="mobileImport" class="flex flex-col items-center text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+        </svg>
+        <span>Impor</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Viewer Modal -->
+  <div id="viewer" class="fixed inset-0 hidden place-items-center bg-black/80 p-4 z-50">
+    <div class="relative w-full h-full flex flex-col">
+      <button id="viewerClose" class="absolute top-4 right-4 px-4 py-2 rounded-lg bg-white/10 z-10">Tutup</button>
+      <div class="flex-1 overflow-hidden flex items-center justify-center mt-4">
+        <img id="viewerImg" src="" alt="" class="max-w-full max-h-full object-contain" />
+      </div>
+      <div class="mt-3 flex justify-between items-center bg-[var(--card)] p-3 rounded-lg">
+        <div class="text-sm text-white/70 flex-1 truncate" id="viewerMeta"></div>
+        <div class="flex gap-2 ml-2">
+          <button id="btnDownload" class="px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10">Unduh</button>
+          <button id="btnDelete" class="px-3 py-2 text-sm rounded-xl bg-rose-600 hover:bg-rose-500">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Modal -->
+  <div id="keyModal" class="modal">
+    <div class="modal-content">
+      <h2 id="keyModalTitle" class="text-lg font-bold mb-4">Masukkan Kunci Akses</h2>
+      <p id="keyModalDesc" class="text-sm text-white/70 mb-3">Untuk melanjutkan operasi ini, masukkan kunci akses yang sesuai.</p>
+      <input type="password" id="keyInput" placeholder="Masukkan kunci..." class="input-android w-full bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-violet-500 mb-4" />
+      <div class="flex justify-end gap-2">
+        <button id="keyCancel" class="btn-android bg-white/5 hover:bg-white/10 border border-white/10">Batal</button>
+        <button id="keySubmit" class="btn-android bg-violet-600 hover:bg-violet-500">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <template id="cardTemplate">
+    <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
+      <img class="w-full h-40 object-cover select-none" draggable="false" />
+      <div class="p-3 flex items-center gap-2">
+        <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" placeholder="Nama foto" />
+        <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date"></span>
+      </div>
+      <div class="px-3 pb-3">
+        <textarea class="notes w-full resize-none bg-white/5 rounded-lg p-2 text-xs" rows="2" placeholder="Catatan…"></textarea>
+      </div>
+      <div class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/40">
+        <button class="view px-3 py-2 rounded-xl bg-white/10 border border-white/20">Lihat</button>
+      </div>
+    </article>
+  </template>
+
+  <input id="importInput" type="file" accept="application/zip" class="hidden" />
+
+  <script>
+    // === Utility: IndexedDB minimal wrapper ===
+    const DB_NAME = 'trickster_memory';
+    const STORE = 'photos';
+    const UPLOAD_KEY = 'TRICKSTERBACKERA'; // Kunci akses untuk upload
+    const DOWNLOAD_DELETE_KEY = 'ARCELGANTENG'; // Kunci akses untuk unduh dan hapus
+    
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          const store = db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
+          store.createIndex('createdAt', 'createdAt');
+          store.createIndex('title', 'title');
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    function tx(db, mode='readonly') { return db.transaction(STORE, mode).objectStore(STORE); }
+    async function addPhoto(record) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const req = tx(db, 'readwrite').add(record);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    async function getAll() {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const req = tx(db).getAll();
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    async function updatePhoto(id, patch) {
+      const db = await openDB();
+      const store = tx(db, 'readwrite');
+      const current = await new Promise((res, rej)=>{ const r = store.get(id); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); });
+      Object.assign(current, patch);
+      return new Promise((resolve, reject) => { const r = store.put(current); r.onsuccess=()=>resolve(); r.onerror=()=>reject(r.error); });
+    }
+    async function deletePhoto(id) {
+      const db = await openDB();
+      return new Promise((resolve, reject)=>{ const r = tx(db, 'readwrite').delete(id); r.onsuccess=()=>resolve(); r.onerror=()=>reject(r.error); });
+    }
+    async function clearAll() { const db = await openDB(); return new Promise((res,rej)=>{ const r = tx(db,'readwrite').clear(); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); }); }
+
+    // === DOM refs ===
+    const fileInput = document.getElementById('fileInput');
+    const gallery = document.getElementById('gallery');
+    const search = document.getElementById('search');
+    const sort = document.getElementById('sort');
+    const viewer = document.getElementById('viewer');
+    const viewerImg = document.getElementById('viewerImg');
+    const viewerMeta = document.getElementById('viewerMeta');
+    const viewerClose = document.getElementById('viewerClose');
+    const btnDelete = document.getElementById('btnDelete');
+    const btnDownload = document.getElementById('btnDownload');
+    const btnClear = document.getElementById('btnClear');
+    const btnExport = document.getElementById('btnExport');
+    const btnImport = document.getElementById('btnImport');
+    const importInput = document.getElementById('importInput');
+    const keyModal = document.getElementById('keyModal');
+    const keyModalTitle = document.getElementById('keyModalTitle');
+    const keyModalDesc = document.getElementById('keyModalDesc');
+    const keyInput = document.getElementById('keyInput');
+    const keyCancel = document.getElementById('keyCancel');
+    const keySubmit = document.getElementById('keySubmit');
+    const mobileExport = document.getElementById('mobileExport');
+    const mobileImport = document.getElementById('mobileImport');
+
+    let allPhotos = []; // cache
+    let currentId = null;
+    let isUploadAuthenticated = false;
+    let isDownloadDeleteAuthenticated = false;
+    let pendingAction = null;
+    let pendingFiles = null;
+
+    function fmtDate(ms){ 
+      const d = new Date(ms); 
+      return d.toLocaleDateString('id-ID', { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric' 
+      }); 
+    }
+
+    // Render functions
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      let items = [...allPhotos];
+      if (q) items = items.filter(p => (p.title||'').toLowerCase().includes(q) || (p.notes||'').toLowerCase().includes(q));
+      if (sort.value === 'newest') items.sort((a,b)=>b.createdAt-a.createdAt);
+      else if (sort.value === 'oldest') items.sort((a,b)=>a.createdAt-b.createdAt);
+      else if (sort.value === 'name') items.sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+
+      gallery.innerHTML = '';
+      const tpl = document.getElementById('cardTemplate');
+      for (const p of items) {
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        const img = node.querySelector('img');
+        const title = node.querySelector('.title');
+        const notes = node.querySelector('.notes');
+        const date = node.querySelector('.date');
+        const viewBtn = node.querySelector('.view');
+
+        img.src = URL.createObjectURL(p.blob);
+        img.alt = p.title || 'Foto';
+        date.textContent = fmtDate(p.createdAt);
+        title.value = p.title || '';
+        notes.value = p.notes || '';
+
+        title.addEventListener('change', async ()=>{ await updatePhoto(p.id, { title: title.value }); p.title = title.value; });
+        notes.addEventListener('change', async ()=>{ await updatePhoto(p.id, { notes: notes.value }); p.notes = notes.value; });
+        viewBtn.addEventListener('click', ()=> openViewer(p));
+
+        // Better touch handling for mobile
+        img.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 1) {
+            // Single touch - prevent default to avoid scrolling issues
+            e.preventDefault();
+          }
+        });
+
+        gallery.appendChild(node);
+      }
+    }
+
+    function openViewer(p){
+      currentId = p.id;
+      viewerImg.src = URL.createObjectURL(p.blob);
+      viewerMeta.textContent = `${p.title||'Tanpa Judul'} • ${fmtDate(p.createdAt)}`;
+      viewer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeViewer(){ 
+      viewer.classList.add('hidden'); 
+      viewerImg.src = ''; 
+      currentId = null; 
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+
+    // Authentication functions
+    function showKeyModal(actionType) {
+      pendingAction = actionType;
+      
+      if (actionType === 'upload') {
+        keyModalTitle.textContent = 'Kunci Unggah';
+        keyModalDesc.textContent = 'Masukkan kunci untuk mengunggah foto.';
+      } else if (actionType === 'download-delete') {
+        keyModalTitle.textContent = 'Kunci Unduh/Hapus';
+        keyModalDesc.textContent = 'Masukkan kunci untuk mengunduh atau menghapus foto.';
+      }
+      
+      keyModal.style.display = 'block';
+      keyInput.value = '';
+      keyInput.focus();
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function hideKeyModal() {
+      keyModal.style.display = 'none';
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+
+    function verifyKey() {
+      let isValid = false;
+      
+      if (pendingAction === 'upload' && keyInput.value === UPLOAD_KEY) {
+        isUploadAuthenticated = true;
+        isValid = true;
+      } else if (pendingAction === 'download-delete' && keyInput.value === DOWNLOAD_DELETE_KEY) {
+        isDownloadDeleteAuthenticated = true;
+        isValid = true;
+      }
+      
+      if (isValid) {
+        hideKeyModal();
+        // Process pending action after successful authentication
+        if (pendingAction === 'upload' && pendingFiles) {
+          handleFiles(pendingFiles);
+          pendingFiles = null;
+        } else if (pendingAction === 'download-delete') {
+          executePendingDownloadDeleteAction();
+        }
+        return true;
+      } else {
+        alert('Kunci akses salah!');
+        keyInput.value = '';
+        keyInput.focus();
+        return false;
+      }
+    }
+
+    // Upload handlers
+    fileInput.addEventListener('change', () => {
+      if (!isUploadAuthenticated) {
+        pendingFiles = fileInput.files;
+        showKeyModal('upload');
+      } else {
+        handleFiles(fileInput.files);
+      }
+    });
+
+    async function handleFiles(fileList){
+      const files = Array.from(fileList).filter(f=>f.type.startsWith('image/'));
+      for (const file of files){
+        const blob = await compressIfNeeded(file); // keep moderate sizes
+        const rec = { title: file.name.replace(/\.[^.]+$/, ''), notes:'', createdAt: Date.now(), blob };
+        await addPhoto(rec);
+      }
+      allPhotos = await getAll();
+      render();
+      fileInput.value = '';
+    }
+
+    // Simple compression to avoid gigantic storage (canvas resize if > 2000px)
+    async function compressIfNeeded(file){
+      return new Promise((resolve)=>{
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = ()=>{
+          const maxDim = 2000;
+          let {width:w, height:h} = img;
+          if (w <= maxDim && h <= maxDim) { URL.revokeObjectURL(url); return resolve(file); }
+          const scale = Math.min(maxDim / w, maxDim / h);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(w*scale); canvas.height = Math.round(h*scale);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob(b=>{ URL.revokeObjectURL(url); resolve(b); }, 'image/jpeg', 0.9);
+        };
+        img.onerror = ()=>{ URL.revokeObjectURL(url); resolve(file); };
+        img.src = url;
+      });
+    }
+
+    // Delete / Download
+    let pendingDownloadDeleteAction = null;
+
+    btnDelete.addEventListener('click', async ()=>{
+      if (!currentId) return;
+      
+      if (!isDownloadDeleteAuthenticated) {
+        pendingDownloadDeleteAction = 'delete';
+        showKeyModal('download-delete');
+      } else {
+        executeDelete();
+      }
+    });
+
+    btnDownload.addEventListener('click', async ()=>{
+      if (!currentId) return;
+      
+      if (!isDownloadDeleteAuthenticated) {
+        pendingDownloadDeleteAction = 'download';
+        showKeyModal('download-delete');
+      } else {
+        executeDownload();
+      }
+    });
+
+    function executePendingDownloadDeleteAction() {
+      if (pendingDownloadDeleteAction === 'delete') {
+        executeDelete();
+      } else if (pendingDownloadDeleteAction === 'download') {
+        executeDownload();
+      }
+      pendingDownloadDeleteAction = null;
+    }
+
+    async function executeDelete() {
+      await deletePhoto(currentId);
+      allPhotos = await getAll();
+      render();
+      closeViewer();
+    }
+
+    async function executeDownload() {
+      const p = allPhotos.find(x=>x.id===currentId);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(p.blob);
+      a.download = (p.title||'photo') + '.jpg';
+      a.click();
+    }
+
+    viewerClose.addEventListener('click', closeViewer);
+    viewer.addEventListener('click', (e)=>{ if (e.target===viewer) closeViewer(); });
+
+    // Search & Sort
+    search.addEventListener('input', render);
+    sort.addEventListener('change', render);
+
+    // Clear all
+    btnClear.addEventListener('click', async ()=>{
+      if (!isDownloadDeleteAuthenticated) {
+        pendingDownloadDeleteAction = 'clear-all';
+        showKeyModal('download-delete');
+      } else {
+        executeClearAll();
+      }
+    });
+
+    async function executeClearAll() {
+      if (!confirm('Hapus semua foto di album ini dari perangkat ini?')) return;
+      await clearAll();
+      allPhotos = [];
+      render();
+    }
+
+    // Export to ZIP (client-side)
+    function exportZip() {
+      if (allPhotos.length === 0) {
+        alert('Tidak ada foto untuk diekspor!');
+        return;
+      }
+      
+      if (!isDownloadDeleteAuthenticated) {
+        pendingDownloadDeleteAction = 'export';
+        showKeyModal('download-delete');
+      } else {
+        executeExportZip();
+      }
+    }
+
+    async function executeExportZip() {
+      const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+      const zip = new JSZip();
+      for (const p of allPhotos){
+        const buf = await p.blob.arrayBuffer();
+        const name = (p.title||('photo_'+p.id)).replace(/[^a-z0-9_\-]+/gi,'_') + '.jpg';
+        zip.file(name, buf);
+      }
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'TRICKSTER_MEMORY.zip';
+      a.click();
+    }
+
+    btnExport.addEventListener('click', exportZip);
+    mobileExport.addEventListener('click', exportZip);
+
+    // Import from ZIP (names become titles)
+    function importZip() {
+      importInput.click();
+    }
+
+    btnImport.addEventListener('click', importZip);
+    mobileImport.addEventListener('click', importZip);
+    
+    importInput.addEventListener('change', async ()=>{
+      const file = importInput.files[0]; if (!file) return;
+      if (!isUploadAuthenticated) {
+        pendingFiles = file;
+        showKeyModal('upload');
+        return;
+      }
+      
+      const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+      const zip = await JSZip.loadAsync(file);
+      for (const [path, entry] of Object.entries(zip.files)){
+        if (entry.dir) continue;
+        const ext = path.split('.').pop().toLowerCase();
+        if (!['png','jpg','jpeg','webp','gif'].includes(ext)) continue;
+        const blob = new Blob([await entry.async('arraybuffer')], { type: `image/${ext==='jpg'?'jpeg':ext}` });
+        await addPhoto({ title: path.replace(/\.[^.]+$/, ''), notes:'', createdAt: Date.now(), blob });
+      }
+      allPhotos = await getAll();
+      render();
+      importInput.value = '';
+    });
+
+    // Key modal event handlers
+    keySubmit.addEventListener('click', verifyKey);
+    keyCancel.addEventListener('click', hideKeyModal);
+    keyInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') verifyKey();
+    });
+
+    // Prevent zoom on input focus on mobile
+    document.addEventListener('touchstart', function(e) {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+
+    // Initial load
+    (async ()=>{ allPhotos = await getAll(); render(); })();
+  </script>
+</body>
+  </html>
