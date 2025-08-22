@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="theme-color" content="#0b0f14">
-  <title>𝑻𝑹𝑰𝑪𝑲𝑺𝑻𝑬𝑹 𝑴𝑬𝑴𝑶𝑹𝒀 — Album Foto</title>
+  <title>TRICKSTER MEMORY — Album Foto</title>
   <meta name="description" content="Album unggah foto TRICKSTER MEMORY — unggah, simpan (lokal), lihat, dan kelola.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
     :root { --bg: #0b0f14; --card:#0f141b; --muted:#8b9bb0; --accent:#7c3aed; }
     body { font-family: 'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; -webkit-tap-highlight-color: transparent; }
     .glass { backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.07); }
-    .gradient-text { background: linear-gradient(90deg,#a78bfa,#22d3ee,#34d399,#f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .title-text { color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
     .grid-auto { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.02); }
     .dropzone-dashed { border: 2px dashed rgba(255,255,255,0.12); }
@@ -54,6 +54,18 @@
       padding: 12px;
       z-index: 40;
     }
+    
+    /* Image error handling */
+    .image-error {
+      background: linear-gradient(45deg, #2c3e50, #4ca1af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
   </style>
 </head>
 <body class="h-full bg-[var(--bg)] text-white">
@@ -63,13 +75,12 @@
         <img src="https://i.ibb.co.com/vx96S5bR/fc7f58b5-60f7-446c-b483-e92e1b2e04bd.jpg" alt="Logo" class="w-full h-full object-cover">
       </div>
       <div class="flex-1">
-        <h1 class="text-xl sm:text-2xl font-bold tracking-wide gradient-text">𝑻𝑹𝑰𝑪𝑲𝑺𝑻𝑬𝑹 𝑴𝑬𝑴𝑶𝑹𝒀</h1>
-        <p class="text-xs text-[var(--muted)] hidden sm:block">Album foto modern. Unggah • Simpan (perangkat Anda) • Bagikan lokal.</p>
+        <h1 class="text-xl sm:text-2xl font-bold tracking-wide title-text">TRICKSTER MEMORY</h1>
+        <p class="text-xs text-[var(--muted)] hidden sm:block">Album foto modern. Simpan (perangkat Anda) • Bagikan lokal.</p>
       </div>
       <div class="flex items-center gap-2">
+        <button id="btnLoadImgBB" class="px-3 py-2 text-sm rounded-xl bg-green-600 hover:bg-green-500 border border-white/10">Muat ImgBB</button>
         <button id="btnExport" class="px-3 py-2 text-sm rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hidden sm:block">Ekspor .zip</button>
-        <label class="px-3 py-2 text-sm rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 cursor-pointer" for="fileInput">Tambah</label>
-        <input id="fileInput" type="file" accept="image/*" multiple class="hidden" />
       </div>
     </div>
   </header>
@@ -92,18 +103,47 @@
     </section>
 
     <!-- Gallery Grid -->
-    <section class="mt-6 grid gap-4 grid-auto gallery-grid" id="gallery"></section>
+    <section class="mt-6 grid gap-4 grid-auto gallery-grid" id="gallery">
+      <!-- Contoh gambar dari ImgBB -->
+      <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
+        <img src="https://i.ibb.co/NdG0mc26/sifa.jpg" alt="sifa" class="w-full h-40 object-cover select-none" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/2c3e50/ffffff?text=Gambar+Tidak+Tersedia'; this.parentNode.classList.add('image-error')" />
+        <div class="p-3 flex items-center gap-2">
+          <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" value="sifa" placeholder="Nama foto" />
+          <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date">22/08/2025</span>
+        </div>
+        <div class="px-3 pb-3">
+          <textarea class="notes w-full resize-none bg-white/5 rounded-lg p-2 text-xs" rows="2" placeholder="Catatan…">Dari ImgBB</textarea>
+        </div>
+        <div class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/40">
+          <button class="view px-3 py-2 rounded-xl bg-white/10 border border-white/20">Lihat</button>
+        </div>
+      </article>
+      
+      <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
+        <img src="https://i.ibb.co/4Jqy2S0R/IMG-20250822-WA0000.jpg" alt="IMG-20250822-WA0000" class="w-full h-40 object-cover select-none" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/2c3e50/ffffff?text=Gambar+Tidak+Tersedia'; this.parentNode.classList.add('image-error')" />
+        <div class="p-3 flex items-center gap-2">
+          <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" value="IMG-20250822-WA" placeholder="Nama foto" />
+          <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date">22/08/2025</span>
+        </div>
+        <div class="px-3 pb-3">
+          <textarea class="notes w-full resize-none bg-white/5 rounded-lg p-2 text-xs" rows="2" placeholder="Catatan…">Dari ImgBB</textarea>
+        </div>
+        <div class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/40">
+          <button class="view px-3 py-2 rounded-xl bg-white/10 border border-white/20">Lihat</button>
+        </div>
+      </article>
+    </section>
   </main>
   
   <!-- Bottom Navigation for Mobile -->
   <div class="bottom-nav sm:hidden">
     <div class="flex justify-around">
-      <label for="fileInput" class="flex flex-col items-center text-xs">
+      <button id="mobileLoadImgBB" class="flex flex-col items-center text-xs">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
-        <span>Tambah</span>
-      </label>
+        <span>ImgBB</span>
+      </button>
       <button id="mobileExport" class="flex flex-col items-center text-xs">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -149,10 +189,23 @@
     </div>
   </div>
 
+  <!-- ImgBB URL Input Modal -->
+  <div id="imgbbModal" class="modal">
+    <div class="modal-content">
+      <h2 class="text-lg font-bold mb-4">Tambah Foto dari ImgBB</h2>
+      <p class="text-sm text-white/70 mb-3">Masukkan URL gambar ImgBB (satu per baris):</p>
+      <textarea id="imgbbUrls" placeholder="https://i.ibb.co/abc123/photo1.jpg&#10;https://i.ibb.co/def456/photo2.jpg" class="input-android w-full bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-violet-500 mb-4" rows="10"></textarea>
+      <div class="flex justify-end gap-2">
+        <button id="imgbbCancel" class="btn-android bg-white/5 hover:bg-white/10 border border-white/10">Batal</button>
+        <button id="imgbbSubmit" class="btn-android bg-green-600 hover:bg-green-500">Tambah</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Templates -->
   <template id="cardTemplate">
     <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
-      <img class="w-full h-40 object-cover select-none" draggable="false" />
+      <img class="w-full h-40 object-cover select-none" draggable="false" onerror="handleImageError(this)" />
       <div class="p-3 flex items-center gap-2">
         <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" placeholder="Nama foto" />
         <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date"></span>
@@ -169,6 +222,12 @@
   <input id="importInput" type="file" accept="application/zip" class="hidden" />
 
   <script>
+    // Fungsi untuk menangani error gambar
+    function handleImageError(img) {
+      img.src = 'https://via.placeholder.com/150x150/2c3e50/ffffff?text=Gambar+Tidak+Tersedia';
+      img.parentNode.classList.add('image-error');
+    }
+
     // === Utility: IndexedDB minimal wrapper ===
     const DB_NAME = 'trickster_memory';
     const STORE = 'photos';
@@ -219,7 +278,6 @@
     async function clearAll() { const db = await openDB(); return new Promise((res,rej)=>{ const r = tx(db,'readwrite').clear(); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); }); }
 
     // === DOM refs ===
-    const fileInput = document.getElementById('fileInput');
     const gallery = document.getElementById('gallery');
     const search = document.getElementById('search');
     const sort = document.getElementById('sort');
@@ -232,6 +290,7 @@
     const btnClear = document.getElementById('btnClear');
     const btnExport = document.getElementById('btnExport');
     const btnImport = document.getElementById('btnImport');
+    const btnLoadImgBB = document.getElementById('btnLoadImgBB');
     const importInput = document.getElementById('importInput');
     const keyModal = document.getElementById('keyModal');
     const keyModalTitle = document.getElementById('keyModalTitle');
@@ -241,6 +300,11 @@
     const keySubmit = document.getElementById('keySubmit');
     const mobileExport = document.getElementById('mobileExport');
     const mobileImport = document.getElementById('mobileImport');
+    const mobileLoadImgBB = document.getElementById('mobileLoadImgBB');
+    const imgbbModal = document.getElementById('imgbbModal');
+    const imgbbUrls = document.getElementById('imgbbUrls');
+    const imgbbCancel = document.getElementById('imgbbCancel');
+    const imgbbSubmit = document.getElementById('imgbbSubmit');
 
     let allPhotos = []; // cache
     let currentId = null;
@@ -277,7 +341,19 @@
         const date = node.querySelector('.date');
         const viewBtn = node.querySelector('.view');
 
-        img.src = URL.createObjectURL(p.blob);
+        // Handle both Blob objects and external URLs
+        if (p.blob) {
+          img.src = URL.createObjectURL(p.blob);
+        } else if (p.url) {
+          // Pastikan URL ImgBB benar
+          let imageUrl = p.url;
+          // Perbaiki URL jika perlu
+          if (imageUrl.includes('i.ibb.co.com')) {
+            imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
+          }
+          img.src = imageUrl;
+        }
+        
         img.alt = p.title || 'Foto';
         date.textContent = fmtDate(p.createdAt);
         title.value = p.title || '';
@@ -301,7 +377,19 @@
 
     function openViewer(p){
       currentId = p.id;
-      viewerImg.src = URL.createObjectURL(p.blob);
+      
+      // Handle both Blob objects and external URLs
+      if (p.blob) {
+        viewerImg.src = URL.createObjectURL(p.blob);
+      } else if (p.url) {
+        // Pastikan URL ImgBB benar
+        let imageUrl = p.url;
+        if (imageUrl.includes('i.ibb.co.com')) {
+          imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
+        }
+        viewerImg.src = imageUrl;
+      }
+      
       viewerMeta.textContent = `${p.title||'Tanpa Judul'} • ${fmtDate(p.createdAt)}`;
       viewer.classList.remove('hidden');
       document.body.style.overflow = 'hidden'; // Prevent background scrolling
@@ -352,7 +440,7 @@
         hideKeyModal();
         // Process pending action after successful authentication
         if (pendingAction === 'upload' && pendingFiles) {
-          handleFiles(pendingFiles);
+          // Tidak ada lagi upload file, jadi tidak perlu handleFiles
           pendingFiles = null;
         } else if (pendingAction === 'download-delete') {
           executePendingDownloadDeleteAction();
@@ -366,47 +454,57 @@
       }
     }
 
-    // Upload handlers
-    fileInput.addEventListener('change', () => {
-      if (!isUploadAuthenticated) {
-        pendingFiles = fileInput.files;
-        showKeyModal('upload');
-      } else {
-        handleFiles(fileInput.files);
-      }
-    });
-
-    async function handleFiles(fileList){
-      const files = Array.from(fileList).filter(f=>f.type.startsWith('image/'));
-      for (const file of files){
-        const blob = await compressIfNeeded(file); // keep moderate sizes
-        const rec = { title: file.name.replace(/\.[^.]+$/, ''), notes:'', createdAt: Date.now(), blob };
-        await addPhoto(rec);
-      }
-      allPhotos = await getAll();
-      render();
-      fileInput.value = '';
+    // ImgBB functions
+    function showImgBBModal() {
+      imgbbModal.style.display = 'block';
+      imgbbUrls.value = '';
+      imgbbUrls.focus();
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
 
-    // Simple compression to avoid gigantic storage (canvas resize if > 2000px)
-    async function compressIfNeeded(file){
-      return new Promise((resolve)=>{
-        const img = new Image();
-        const url = URL.createObjectURL(file);
-        img.onload = ()=>{
-          const maxDim = 2000;
-          let {width:w, height:h} = img;
-          if (w <= maxDim && h <= maxDim) { URL.revokeObjectURL(url); return resolve(file); }
-          const scale = Math.min(maxDim / w, maxDim / h);
-          const canvas = document.createElement('canvas');
-          canvas.width = Math.round(w*scale); canvas.height = Math.round(h*scale);
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          canvas.toBlob(b=>{ URL.revokeObjectURL(url); resolve(b); }, 'image/jpeg', 0.9);
+    function hideImgBBModal() {
+      imgbbModal.style.display = 'none';
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+
+    async function addImgBBPhotos() {
+      const urls = imgbbUrls.value.split('\n')
+        .map(url => url.trim())
+        .filter(url => url.length > 0 && url.startsWith('http'));
+      
+      if (urls.length === 0) {
+        alert('Masukkan setidaknya satu URL gambar yang valid!');
+        return;
+      }
+
+      for (const url of urls) {
+        // Extract filename from URL for title
+        const urlParts = url.split('/');
+        let filename = urlParts[urlParts.length - 1];
+        filename = filename.split('?')[0]; // Remove query parameters
+        const title = filename.replace(/\.[^.]+$/, ''); // Remove extension
+        
+        // Pastikan URL ImgBB benar
+        let imageUrl = url;
+        if (imageUrl.includes('i.ibb.co.com')) {
+          imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
+        }
+        
+        // Create record with URL instead of blob
+        const rec = { 
+          title: title, 
+          notes: 'Dari ImgBB', 
+          createdAt: Date.now(), 
+          url: imageUrl,
+          source: 'imgbb' 
         };
-        img.onerror = ()=>{ URL.revokeObjectURL(url); resolve(file); };
-        img.src = url;
-      });
+        
+        await addPhoto(rec);
+      }
+      
+      allPhotos = await getAll();
+      render();
+      hideImgBBModal();
     }
 
     // Delete / Download
@@ -452,10 +550,33 @@
 
     async function executeDownload() {
       const p = allPhotos.find(x=>x.id===currentId);
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(p.blob);
-      a.download = (p.title||'photo') + '.jpg';
-      a.click();
+      
+      // Handle download for external URLs
+      if (p.url) {
+        // For external URLs, we need to fetch and convert to blob
+        try {
+          let imageUrl = p.url;
+          if (imageUrl.includes('i.ibb.co.com')) {
+            imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
+          }
+          
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = (p.title||'photo') + '.jpg';
+          a.click();
+        } catch (error) {
+          console.error('Error downloading external image:', error);
+          alert('Gagal mengunduh gambar. Silakan coba lagi.');
+        }
+      } else if (p.blob) {
+        // For local blobs
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(p.blob);
+        a.download = (p.title||'photo') + '.jpg';
+        a.click();
+      }
     }
 
     viewerClose.addEventListener('click', closeViewer);
@@ -500,11 +621,36 @@
     async function executeExportZip() {
       const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
       const zip = new JSZip();
+      
       for (const p of allPhotos){
-        const buf = await p.blob.arrayBuffer();
+        let blob;
+        
+        if (p.blob) {
+          // Local blob
+          blob = p.blob;
+        } else if (p.url) {
+          // External URL - fetch first
+          try {
+            let imageUrl = p.url;
+            if (imageUrl.includes('i.ibb.co.com')) {
+              imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
+            }
+            
+            const response = await fetch(imageUrl);
+            blob = await response.blob();
+          } catch (error) {
+            console.error('Error fetching external image:', error);
+            continue; // Skip this image if there's an error
+          }
+        } else {
+          continue; // Skip if no image data
+        }
+        
+        const buf = await blob.arrayBuffer();
         const name = (p.title||('photo_'+p.id)).replace(/[^a-z0-9_\-]+/gi,'_') + '.jpg';
         zip.file(name, buf);
       }
+      
       const blob = await zip.generateAsync({ type: 'blob' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -551,6 +697,19 @@
     keyInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') verifyKey();
     });
+
+    // ImgBB modal event handlers
+    imgbbSubmit.addEventListener('click', addImgBBPhotos);
+    imgbbCancel.addEventListener('click', hideImgBBModal);
+    imgbbUrls.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && e.ctrlKey) {
+        addImgBBPhotos();
+      }
+    });
+
+    // Load ImgBB button handlers
+    btnLoadImgBB.addEventListener('click', showImgBBModal);
+    mobileLoadImgBB.addEventListener('click', showImgBBModal);
 
     // Prevent zoom on input focus on mobile
     document.addEventListener('touchstart', function(e) {
