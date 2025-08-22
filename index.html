@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="theme-color" content="#0b0f14">
   <title>TRICKSTER MEMORY — Album Foto</title>
-  <meta name="description" content="Album unggah foto TRICKSTER MEMORY — unggah, simpan (lokal), lihat, dan kelola.">
+  <meta name="description" content="Album foto TRICKSTER MEMORY — simpan (lokal), lihat, dan kelola.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -66,13 +66,25 @@
       text-align: center;
       padding: 10px;
     }
+
+    /* Loading animation */
+    .img-loading {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body class="h-full bg-[var(--bg)] text-white">
   <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0f14e6] backdrop-blur">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
       <div class="w-9 h-9 rounded-2xl bg-white/10 grid place-items-center overflow-hidden">
-        <img src="https://i.ibb.co.com/vx96S5bR/fc7f58b5-60f7-446c-b483-e92e1b2e04bd.jpg" alt="Logo" class="w-full h-full object-cover">
+        <img src="https://i.ibb.co.com/vx96S5bR/fc7f58b5-60f7-446c-b483-e92e1b2e04bd.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjM2IiBoZWlnaHQ9IjM2IiBmaWxsPSIjMkMzRTUwIi8+Cjx0ZXh0IHg9IjE4IiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VE08L3RleHQ+Cjwvc3ZnPg=='">
       </div>
       <div class="flex-1">
         <h1 class="text-xl sm:text-2xl font-bold tracking-wide title-text">TRICKSTER MEMORY</h1>
@@ -104,34 +116,7 @@
 
     <!-- Gallery Grid -->
     <section class="mt-6 grid gap-4 grid-auto gallery-grid" id="gallery">
-      <!-- Contoh gambar dari ImgBB -->
-      <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
-        <img src="https://i.ibb.co/NdG0mc26/sifa.jpg" alt="sifa" class="w-full h-40 object-cover select-none" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/2c3e50/ffffff?text=Gambar+Tidak+Tersedia'; this.parentNode.classList.add('image-error')" />
-        <div class="p-3 flex items-center gap-2">
-          <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" value="sifa" placeholder="Nama foto" />
-          <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date">22/08/2025</span>
-        </div>
-        <div class="px-3 pb-3">
-          <textarea class="notes w-full resize-none bg-white/5 rounded-lg p-2 text-xs" rows="2" placeholder="Catatan…">Dari ImgBB</textarea>
-        </div>
-        <div class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/40">
-          <button class="view px-3 py-2 rounded-xl bg-white/10 border border-white/20">Lihat</button>
-        </div>
-      </article>
-      
-      <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
-        <img src="https://i.ibb.co/4Jqy2S0R/IMG-20250822-WA0000.jpg" alt="IMG-20250822-WA0000" class="w-full h-40 object-cover select-none" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/2c3e50/ffffff?text=Gambar+Tidak+Tersedia'; this.parentNode.classList.add('image-error')" />
-        <div class="p-3 flex items-center gap-2">
-          <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" value="IMG-20250822-WA" placeholder="Nama foto" />
-          <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date">22/08/2025</span>
-        </div>
-        <div class="px-3 pb-3">
-          <textarea class="notes w-full resize-none bg-white/5 rounded-lg p-2 text-xs" rows="2" placeholder="Catatan…">Dari ImgBB</textarea>
-        </div>
-        <div class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/40">
-          <button class="view px-3 py-2 rounded-xl bg-white/10 border border-white/20">Lihat</button>
-        </div>
-      </article>
+      <!-- Gambar akan dimuat melalui JavaScript -->
     </section>
   </main>
   
@@ -205,7 +190,7 @@
   <!-- Templates -->
   <template id="cardTemplate">
     <article class="group relative overflow-hidden rounded-2xl bg-[var(--card)] border border-white/10 shadow-soft hover:border-violet-500/40">
-      <img class="w-full h-40 object-cover select-none" draggable="false" onerror="handleImageError(this)" />
+      <img class="w-full h-40 object-cover select-none img-loading" draggable="false" onerror="handleImageError(this)" onload="handleImageLoad(this)" />
       <div class="p-3 flex items-center gap-2">
         <input class="title flex-1 bg-transparent outline-none border-b border-transparent focus:border-white/20 text-sm" placeholder="Nama foto" />
         <span class="text-[10px] text-[var(--muted)] whitespace-nowrap date"></span>
@@ -224,15 +209,55 @@
   <script>
     // Fungsi untuk menangani error gambar
     function handleImageError(img) {
-      img.src = 'https://via.placeholder.com/150x150/2c3e50/ffffff?text=Gambar+Tidak+Tersedia';
+      console.error('Gagal memuat gambar:', img.src);
+      img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMkMzRTUwIi8+Cjx0ZXh0IHg9Ijc1IiB5PSI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+R2FtYmFyIFRpZGFrIFRlcnNlZGlhPC90ZXh0Pgo8L3N2Zz4=';
       img.parentNode.classList.add('image-error');
+      img.classList.remove('img-loading');
+    }
+
+    // Fungsi untuk menangani gambar berhasil dimuat
+    function handleImageLoad(img) {
+      img.classList.remove('img-loading');
+    }
+
+    // Fungsi untuk memperbaiki URL ImgBB
+    function fixImgBBUrl(url) {
+      // Pastikan URL menggunakan format yang benar
+      if (url.includes('i.ibb.co.com')) {
+        url = url.replace('i.ibb.co.com', 'i.ibb.co');
+      }
+      
+      // Pastikan URL menggunakan HTTPS
+      if (url.startsWith('http://')) {
+        url = url.replace('http://', 'https://');
+      }
+      
+      // Hapus parameter yang tidak perlu
+      if (url.includes('?')) {
+        url = url.split('?')[0];
+      }
+      
+      return url;
+    }
+
+    // Fungsi untuk memeriksa apakah gambar dapat diakses
+    async function checkImageAccessibility(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+        
+        // Timeout setelah 5 detik
+        setTimeout(() => resolve(false), 5000);
+      });
     }
 
     // === Utility: IndexedDB minimal wrapper ===
     const DB_NAME = 'trickster_memory';
     const STORE = 'photos';
-    const UPLOAD_KEY = 'TRICKSTERBACKERA'; // Kunci akses untuk upload
-    const DOWNLOAD_DELETE_KEY = 'ARCELGANTENG'; // Kunci akses untuk unduh dan hapus
+    const UPLOAD_KEY = 'TRICKSTERBACKERA';
+    const DOWNLOAD_DELETE_KEY = 'ARCELGANTENG';
     
     function openDB() {
       return new Promise((resolve, reject) => {
@@ -247,7 +272,9 @@
         req.onerror = () => reject(req.error);
       });
     }
+
     function tx(db, mode='readonly') { return db.transaction(STORE, mode).objectStore(STORE); }
+    
     async function addPhoto(record) {
       const db = await openDB();
       return new Promise((resolve, reject) => {
@@ -256,6 +283,7 @@
         req.onerror = () => reject(req.error);
       });
     }
+    
     async function getAll() {
       const db = await openDB();
       return new Promise((resolve, reject) => {
@@ -264,6 +292,7 @@
         req.onerror = () => reject(req.error);
       });
     }
+    
     async function updatePhoto(id, patch) {
       const db = await openDB();
       const store = tx(db, 'readwrite');
@@ -271,10 +300,12 @@
       Object.assign(current, patch);
       return new Promise((resolve, reject) => { const r = store.put(current); r.onsuccess=()=>resolve(); r.onerror=()=>reject(r.error); });
     }
+    
     async function deletePhoto(id) {
       const db = await openDB();
       return new Promise((resolve, reject)=>{ const r = tx(db, 'readwrite').delete(id); r.onsuccess=()=>resolve(); r.onerror=()=>reject(r.error); });
     }
+    
     async function clearAll() { const db = await openDB(); return new Promise((res,rej)=>{ const r = tx(db,'readwrite').clear(); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); }); }
 
     // === DOM refs ===
@@ -306,7 +337,7 @@
     const imgbbCancel = document.getElementById('imgbbCancel');
     const imgbbSubmit = document.getElementById('imgbbSubmit');
 
-    let allPhotos = []; // cache
+    let allPhotos = [];
     let currentId = null;
     let isUploadAuthenticated = false;
     let isDownloadDeleteAuthenticated = false;
@@ -323,7 +354,7 @@
     }
 
     // Render functions
-    function render() {
+    async function render() {
       const q = search.value.trim().toLowerCase();
       let items = [...allPhotos];
       if (q) items = items.filter(p => (p.title||'').toLowerCase().includes(q) || (p.notes||'').toLowerCase().includes(q));
@@ -333,6 +364,7 @@
 
       gallery.innerHTML = '';
       const tpl = document.getElementById('cardTemplate');
+      
       for (const p of items) {
         const node = tpl.content.firstElementChild.cloneNode(true);
         const img = node.querySelector('img');
@@ -345,13 +377,18 @@
         if (p.blob) {
           img.src = URL.createObjectURL(p.blob);
         } else if (p.url) {
-          // Pastikan URL ImgBB benar
-          let imageUrl = p.url;
-          // Perbaiki URL jika perlu
-          if (imageUrl.includes('i.ibb.co.com')) {
-            imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
+          // Perbaiki URL ImgBB
+          const fixedUrl = fixImgBBUrl(p.url);
+          
+          // Periksa apakah gambar dapat diakses
+          const isAccessible = await checkImageAccessibility(fixedUrl);
+          
+          if (isAccessible) {
+            img.src = fixedUrl;
+          } else {
+            // Jika tidak dapat diakses, gunakan placeholder
+            handleImageError(img);
           }
-          img.src = imageUrl;
         }
         
         img.alt = p.title || 'Foto';
@@ -362,14 +399,6 @@
         title.addEventListener('change', async ()=>{ await updatePhoto(p.id, { title: title.value }); p.title = title.value; });
         notes.addEventListener('change', async ()=>{ await updatePhoto(p.id, { notes: notes.value }); p.notes = notes.value; });
         viewBtn.addEventListener('click', ()=> openViewer(p));
-
-        // Better touch handling for mobile
-        img.addEventListener('touchstart', (e) => {
-          if (e.touches.length === 1) {
-            // Single touch - prevent default to avoid scrolling issues
-            e.preventDefault();
-          }
-        });
 
         gallery.appendChild(node);
       }
@@ -382,24 +411,21 @@
       if (p.blob) {
         viewerImg.src = URL.createObjectURL(p.blob);
       } else if (p.url) {
-        // Pastikan URL ImgBB benar
-        let imageUrl = p.url;
-        if (imageUrl.includes('i.ibb.co.com')) {
-          imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
-        }
-        viewerImg.src = imageUrl;
+        // Perbaiki URL ImgBB
+        const fixedUrl = fixImgBBUrl(p.url);
+        viewerImg.src = fixedUrl;
       }
       
       viewerMeta.textContent = `${p.title||'Tanpa Judul'} • ${fmtDate(p.createdAt)}`;
       viewer.classList.remove('hidden');
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      document.body.style.overflow = 'hidden';
     }
 
     function closeViewer(){ 
       viewer.classList.add('hidden'); 
       viewerImg.src = ''; 
       currentId = null; 
-      document.body.style.overflow = ''; // Re-enable scrolling
+      document.body.style.overflow = '';
     }
 
     // Authentication functions
@@ -417,12 +443,12 @@
       keyModal.style.display = 'block';
       keyInput.value = '';
       keyInput.focus();
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      document.body.style.overflow = 'hidden';
     }
 
     function hideKeyModal() {
       keyModal.style.display = 'none';
-      document.body.style.overflow = ''; // Re-enable scrolling
+      document.body.style.overflow = '';
     }
 
     function verifyKey() {
@@ -438,11 +464,7 @@
       
       if (isValid) {
         hideKeyModal();
-        // Process pending action after successful authentication
-        if (pendingAction === 'upload' && pendingFiles) {
-          // Tidak ada lagi upload file, jadi tidak perlu handleFiles
-          pendingFiles = null;
-        } else if (pendingAction === 'download-delete') {
+        if (pendingAction === 'download-delete') {
           executePendingDownloadDeleteAction();
         }
         return true;
@@ -459,12 +481,12 @@
       imgbbModal.style.display = 'block';
       imgbbUrls.value = '';
       imgbbUrls.focus();
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      document.body.style.overflow = 'hidden';
     }
 
     function hideImgBBModal() {
       imgbbModal.style.display = 'none';
-      document.body.style.overflow = ''; // Re-enable scrolling
+      document.body.style.overflow = '';
     }
 
     async function addImgBBPhotos() {
@@ -481,14 +503,11 @@
         // Extract filename from URL for title
         const urlParts = url.split('/');
         let filename = urlParts[urlParts.length - 1];
-        filename = filename.split('?')[0]; // Remove query parameters
-        const title = filename.replace(/\.[^.]+$/, ''); // Remove extension
+        filename = filename.split('?')[0];
+        const title = filename.replace(/\.[^.]+$/, '');
         
-        // Pastikan URL ImgBB benar
-        let imageUrl = url;
-        if (imageUrl.includes('i.ibb.co.com')) {
-          imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
-        }
+        // Perbaiki URL ImgBB
+        const imageUrl = fixImgBBUrl(url);
         
         // Create record with URL instead of blob
         const rec = { 
@@ -551,15 +570,9 @@
     async function executeDownload() {
       const p = allPhotos.find(x=>x.id===currentId);
       
-      // Handle download for external URLs
       if (p.url) {
-        // For external URLs, we need to fetch and convert to blob
         try {
-          let imageUrl = p.url;
-          if (imageUrl.includes('i.ibb.co.com')) {
-            imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
-          }
-          
+          const imageUrl = fixImgBBUrl(p.url);
           const response = await fetch(imageUrl);
           const blob = await response.blob();
           const a = document.createElement('a');
@@ -571,7 +584,6 @@
           alert('Gagal mengunduh gambar. Silakan coba lagi.');
         }
       } else if (p.blob) {
-        // For local blobs
         const a = document.createElement('a');
         a.href = URL.createObjectURL(p.blob);
         a.download = (p.title||'photo') + '.jpg';
@@ -583,8 +595,8 @@
     viewer.addEventListener('click', (e)=>{ if (e.target===viewer) closeViewer(); });
 
     // Search & Sort
-    search.addEventListener('input', render);
-    sort.addEventListener('change', render);
+    search.addEventListener('input', () => render());
+    sort.addEventListener('change', () => render());
 
     // Clear all
     btnClear.addEventListener('click', async ()=>{
@@ -626,24 +638,18 @@
         let blob;
         
         if (p.blob) {
-          // Local blob
           blob = p.blob;
         } else if (p.url) {
-          // External URL - fetch first
           try {
-            let imageUrl = p.url;
-            if (imageUrl.includes('i.ibb.co.com')) {
-              imageUrl = imageUrl.replace('i.ibb.co.com', 'i.ibb.co');
-            }
-            
+            const imageUrl = fixImgBBUrl(p.url);
             const response = await fetch(imageUrl);
             blob = await response.blob();
           } catch (error) {
             console.error('Error fetching external image:', error);
-            continue; // Skip this image if there's an error
+            continue;
           }
         } else {
-          continue; // Skip if no image data
+          continue;
         }
         
         const buf = await blob.arrayBuffer();
@@ -711,24 +717,8 @@
     btnLoadImgBB.addEventListener('click', showImgBBModal);
     mobileLoadImgBB.addEventListener('click', showImgBBModal);
 
-    // Prevent zoom on input focus on mobile
-    document.addEventListener('touchstart', function(e) {
-      if (e.touches.length > 1) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(e) {
-      const now = (new Date()).getTime();
-      if (now - lastTouchEnd <= 300) {
-        e.preventDefault();
-      }
-      lastTouchEnd = now;
-    }, false);
-
     // Initial load
     (async ()=>{ allPhotos = await getAll(); render(); })();
   </script>
 </body>
-  </html>
+</html>
