@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="theme-color" content="#0b0f14">
-  <title>TRICKSTER MEMORY — Album Foto</title>
+  <title>𝑻𝑹𝑰𝑪𝑲𝑺𝑻𝑬𝑹 𝑴𝑬𝑴𝑶𝑹𝒀 — Album Foto</title>
   <meta name="description" content="Album foto TRICKSTER MEMORY — simpan (lokal), lihat, dan kelola.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,7 +69,7 @@
 
     /* Loading animation */
     .img-loading {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background: linear-gradient(90deg, #2c3e50 25%, #34495e 50%, #2c3e50 75%);
       background-size: 200% 100%;
       animation: loading 1.5s infinite;
     }
@@ -78,24 +78,43 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+    
+    .empty-state svg {
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body class="h-full bg-[var(--bg)] text-white">
   <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0f14e6] backdrop-blur">
-    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-2xl bg-white/10 grid place-items-center overflow-hidden">
-        <img src="https://i.ibb.co.com/vx96S5bR/fc7f58b5-60f7-446c-b483-e92e1b2e04bd.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjM2IiBoZWlnaHQ9IjM2IiBmaWxsPSIjMkMzRTUwIi8+Cjx0ZXh0IHg9IjE4IiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VE08L3RleHQ+Cjwvc3ZnPg=='">
-      </div>
-      <div class="flex-1">
-        <h1 class="text-xl sm:text-2xl font-bold tracking-wide title-text">TRICKSTER MEMORY</h1>
-        <p class="text-xs text-[var(--muted)] hidden sm:block">Album foto modern. Simpan (perangkat Anda) • Bagikan lokal.</p>
-      </div>
-      <div class="flex items-center gap-2">
-        <button id="btnLoadImgBB" class="px-3 py-2 text-sm rounded-xl bg-green-600 hover:bg-green-500 border border-white/10">Muat ImgBB</button>
-        <button id="btnExport" class="px-3 py-2 text-sm rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hidden sm:block">Ekspor .zip</button>
-      </div>
+  <div class="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
+    <!-- LOGO BARU TARO DI SINI -->
+    <div class="w-9 h-9 rounded-2xl bg-white/10 grid place-items-center overflow-hidden">
+      <img src="https://i.ibb.co.com/d0GKmhJp/857a4c42-4ca4-494f-96a3-6c89db50666b.jpg" alt="Logo TRICKSTER MEMORY" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjM2IiBoZWlnaHQ9IjM2IiBmaWxsPSIjMkMzRTUwIi8+Cjx0ZXh0IHg9IjE4IiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VE08L3RleHQ+Cjwvc3ZnPg=='">
     </div>
-  </header>
+    <!-- SAMPAI SINI -->
+    
+    <div class="flex-1">
+      <h1 class="text-xl sm:text-2xl font-bold tracking-wide title-text">𝑻𝑹𝑰𝑪𝑲𝑺𝑻𝑬𝑹 𝑴𝑬𝑴𝑶𝑹𝒀</h1>
+      <p class="text-xs text-[var(--muted)] hidden sm:block">Album foto modern. Simpan (perangkat Anda) • Bagikan lokal.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="btnLoadImgBB" class="px-3 py-2 text-sm rounded-xl bg-green-600 hover:bg-green-500 border border-white/10">Muat ImgBB</button>
+      <button id="btnExport" class="px-3 py-2 text-sm rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hidden sm:block">Ekspor .zip</button>
+    </div>
+  </div>
+</header>
   
   <main class="mx-auto max-w-7xl px-4 pb-24">
     <!-- Toolbar -->
@@ -116,7 +135,14 @@
 
     <!-- Gallery Grid -->
     <section class="mt-6 grid gap-4 grid-auto gallery-grid" id="gallery">
-      <!-- Gambar akan dimuat melalui JavaScript -->
+      <!-- Empty state -->
+      <div class="empty-state col-span-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <h3 class="text-lg font-medium mb-2">Belum ada foto</h3>
+        <p class="text-sm">Gunakan tombol "Muat ImgBB" untuk menambahkan foto</p>
+      </div>
     </section>
   </main>
   
@@ -222,6 +248,8 @@
 
     // Fungsi untuk memperbaiki URL ImgBB
     function fixImgBBUrl(url) {
+      if (!url) return '';
+      
       // Pastikan URL menggunakan format yang benar
       if (url.includes('i.ibb.co.com')) {
         url = url.replace('i.ibb.co.com', 'i.ibb.co');
@@ -243,6 +271,11 @@
     // Fungsi untuk memeriksa apakah gambar dapat diakses
     async function checkImageAccessibility(url) {
       return new Promise((resolve) => {
+        if (!url) {
+          resolve(false);
+          return;
+        }
+        
         const img = new Image();
         img.onload = () => resolve(true);
         img.onerror = () => resolve(false);
@@ -261,12 +294,20 @@
     
     function openDB() {
       return new Promise((resolve, reject) => {
-        const req = indexedDB.open(DB_NAME, 1);
-        req.onupgradeneeded = () => {
-          const db = req.result;
-          const store = db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
-          store.createIndex('createdAt', 'createdAt');
-          store.createIndex('title', 'title');
+        const req = indexedDB.open(DB_NAME, 2); // Increased version number
+        req.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          if (event.oldVersion < 1) {
+            // Initial creation
+            const store = db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
+            store.createIndex('createdAt', 'createdAt');
+            store.createIndex('title', 'title');
+          }
+          if (event.oldVersion < 2) {
+            // Added in version 2: source field for ImgBB images
+            const transaction = event.target.transaction;
+            const store = transaction.objectStore(STORE);
+          }
         };
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
@@ -363,6 +404,20 @@
       else if (sort.value === 'name') items.sort((a,b)=> (a.title||'').localeCompare(b.title||''));
 
       gallery.innerHTML = '';
+      
+      if (items.length === 0) {
+        gallery.innerHTML = `
+          <div class="empty-state col-span-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <h3 class="text-lg font-medium mb-2">Belum ada foto</h3>
+            <p class="text-sm">Gunakan tombol "Muat ImgBB" untuk menambahkan foto</p>
+          </div>
+        `;
+        return;
+      }
+
       const tpl = document.getElementById('cardTemplate');
       
       for (const p of items) {
@@ -375,7 +430,14 @@
 
         // Handle both Blob objects and external URLs
         if (p.blob) {
-          img.src = URL.createObjectURL(p.blob);
+          // Create object URL for blob images
+          try {
+            const blobUrl = URL.createObjectURL(p.blob);
+            img.src = blobUrl;
+          } catch (error) {
+            console.error('Error creating blob URL:', error);
+            handleImageError(img);
+          }
         } else if (p.url) {
           // Perbaiki URL ImgBB
           const fixedUrl = fixImgBBUrl(p.url);
@@ -389,6 +451,9 @@
             // Jika tidak dapat diakses, gunakan placeholder
             handleImageError(img);
           }
+        } else {
+          // Jika tidak ada blob atau URL, tampilkan error
+          handleImageError(img);
         }
         
         img.alt = p.title || 'Foto';
@@ -396,8 +461,24 @@
         title.value = p.title || '';
         notes.value = p.notes || '';
 
-        title.addEventListener('change', async ()=>{ await updatePhoto(p.id, { title: title.value }); p.title = title.value; });
-        notes.addEventListener('change', async ()=>{ await updatePhoto(p.id, { notes: notes.value }); p.notes = notes.value; });
+        title.addEventListener('change', async ()=>{ 
+          try {
+            await updatePhoto(p.id, { title: title.value }); 
+            p.title = title.value; 
+          } catch (error) {
+            console.error('Error updating title:', error);
+          }
+        });
+        
+        notes.addEventListener('change', async ()=>{ 
+          try {
+            await updatePhoto(p.id, { notes: notes.value }); 
+            p.notes = notes.value; 
+          } catch (error) {
+            console.error('Error updating notes:', error);
+          }
+        });
+        
         viewBtn.addEventListener('click', ()=> openViewer(p));
 
         gallery.appendChild(node);
@@ -409,11 +490,19 @@
       
       // Handle both Blob objects and external URLs
       if (p.blob) {
-        viewerImg.src = URL.createObjectURL(p.blob);
+        try {
+          const blobUrl = URL.createObjectURL(p.blob);
+          viewerImg.src = blobUrl;
+        } catch (error) {
+          console.error('Error creating blob URL for viewer:', error);
+          viewerImg.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMkMzRTUwIi8+Cjx0ZXh0IHg9Ijc1IiB5PSI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+R2FtYmFyIFRpZGFrIFRlcnNlZGlhPC90ZXh0Pgo8L3N2Zz4=';
+        }
       } else if (p.url) {
         // Perbaiki URL ImgBB
         const fixedUrl = fixImgBBUrl(p.url);
         viewerImg.src = fixedUrl;
+      } else {
+        viewerImg.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMkMzRTUwIi8+Cjx0ZXh0IHg9Ijc1IiB5PSI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1iZGRsZSI+R2FtYmFyIFRpZGFrIFRlcnNlZGlhPC90ZXh0Pgo8L3N2Zz4=';
       }
       
       viewerMeta.textContent = `${p.title||'Tanpa Judul'} • ${fmtDate(p.createdAt)}`;
@@ -423,6 +512,10 @@
 
     function closeViewer(){ 
       viewer.classList.add('hidden'); 
+      // Clean up blob URLs to prevent memory leaks
+      if (viewerImg.src.startsWith('blob:')) {
+        URL.revokeObjectURL(viewerImg.src);
+      }
       viewerImg.src = ''; 
       currentId = null; 
       document.body.style.overflow = '';
@@ -509,6 +602,14 @@
         // Perbaiki URL ImgBB
         const imageUrl = fixImgBBUrl(url);
         
+        // Periksa apakah gambar dapat diakses sebelum menyimpan
+        const isAccessible = await checkImageAccessibility(imageUrl);
+        
+        if (!isAccessible) {
+          alert(`Gambar tidak dapat diakses: ${imageUrl}. Pastikan URL benar dan gambar bersifat publik.`);
+          continue;
+        }
+        
         // Create record with URL instead of blob
         const rec = { 
           title: title, 
@@ -518,7 +619,12 @@
           source: 'imgbb' 
         };
         
-        await addPhoto(rec);
+        try {
+          await addPhoto(rec);
+        } catch (error) {
+          console.error('Error adding photo:', error);
+          alert('Terjadi kesalahan saat menambahkan foto. Silakan coba lagi.');
+        }
       }
       
       allPhotos = await getAll();
@@ -561,14 +667,20 @@
     }
 
     async function executeDelete() {
-      await deletePhoto(currentId);
-      allPhotos = await getAll();
-      render();
-      closeViewer();
+      try {
+        await deletePhoto(currentId);
+        allPhotos = await getAll();
+        render();
+        closeViewer();
+      } catch (error) {
+        console.error('Error deleting photo:', error);
+        alert('Terjadi kesalahan saat menghapus foto. Silakan coba lagi.');
+      }
     }
 
     async function executeDownload() {
       const p = allPhotos.find(x=>x.id===currentId);
+      if (!p) return;
       
       if (p.url) {
         try {
@@ -578,16 +690,29 @@
           const a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
           a.download = (p.title||'photo') + '.jpg';
+          document.body.appendChild(a);
           a.click();
+          document.body.removeChild(a);
+          // Clean up URL
+          setTimeout(() => URL.revokeObjectURL(a.href), 100);
         } catch (error) {
           console.error('Error downloading external image:', error);
           alert('Gagal mengunduh gambar. Silakan coba lagi.');
         }
       } else if (p.blob) {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(p.blob);
-        a.download = (p.title||'photo') + '.jpg';
-        a.click();
+        try {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(p.blob);
+          a.download = (p.title||'photo') + '.jpg';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          // Clean up URL
+          setTimeout(() => URL.revokeObjectURL(a.href), 100);
+        } catch (error) {
+          console.error('Error downloading blob image:', error);
+          alert('Gagal mengunduh gambar. Silakan coba lagi.');
+        }
       }
     }
 
@@ -610,9 +735,14 @@
 
     async function executeClearAll() {
       if (!confirm('Hapus semua foto di album ini dari perangkat ini?')) return;
-      await clearAll();
-      allPhotos = [];
-      render();
+      try {
+        await clearAll();
+        allPhotos = [];
+        render();
+      } catch (error) {
+        console.error('Error clearing all photos:', error);
+        alert('Terjadi kesalahan saat menghapus semua foto. Silakan coba lagi.');
+      }
     }
 
     // Export to ZIP (client-side)
@@ -631,37 +761,46 @@
     }
 
     async function executeExportZip() {
-      const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
-      const zip = new JSZip();
-      
-      for (const p of allPhotos){
-        let blob;
+      try {
+        const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+        const zip = new JSZip();
         
-        if (p.blob) {
-          blob = p.blob;
-        } else if (p.url) {
-          try {
-            const imageUrl = fixImgBBUrl(p.url);
-            const response = await fetch(imageUrl);
-            blob = await response.blob();
-          } catch (error) {
-            console.error('Error fetching external image:', error);
+        for (const p of allPhotos){
+          let blob;
+          
+          if (p.blob) {
+            blob = p.blob;
+          } else if (p.url) {
+            try {
+              const imageUrl = fixImgBBUrl(p.url);
+              const response = await fetch(imageUrl);
+              blob = await response.blob();
+            } catch (error) {
+              console.error('Error fetching external image:', error);
+              continue;
+            }
+          } else {
             continue;
           }
-        } else {
-          continue;
+          
+          const buf = await blob.arrayBuffer();
+          const name = (p.title||('photo_'+p.id)).replace(/[^a-z0-9_\-]+/gi,'_') + '.jpg';
+          zip.file(name, buf);
         }
         
-        const buf = await blob.arrayBuffer();
-        const name = (p.title||('photo_'+p.id)).replace(/[^a-z0-9_\-]+/gi,'_') + '.jpg';
-        zip.file(name, buf);
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'TRICKSTER_MEMORY.zip';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        // Clean up URL
+        setTimeout(() => URL.revokeObjectURL(a.href), 100);
+      } catch (error) {
+        console.error('Error exporting zip:', error);
+        alert('Terjadi kesalahan saat mengekspor foto. Silakan coba lagi.');
       }
-      
-      const blob = await zip.generateAsync({ type: 'blob' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'TRICKSTER_MEMORY.zip';
-      a.click();
     }
 
     btnExport.addEventListener('click', exportZip);
@@ -676,25 +815,47 @@
     mobileImport.addEventListener('click', importZip);
     
     importInput.addEventListener('change', async ()=>{
-      const file = importInput.files[0]; if (!file) return;
+      const file = importInput.files[0]; 
+      if (!file) return;
+      
       if (!isUploadAuthenticated) {
         pendingFiles = file;
         showKeyModal('upload');
         return;
       }
       
-      const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
-      const zip = await JSZip.loadAsync(file);
-      for (const [path, entry] of Object.entries(zip.files)){
-        if (entry.dir) continue;
-        const ext = path.split('.').pop().toLowerCase();
-        if (!['png','jpg','jpeg','webp','gif'].includes(ext)) continue;
-        const blob = new Blob([await entry.async('arraybuffer')], { type: `image/${ext==='jpg'?'jpeg':ext}` });
-        await addPhoto({ title: path.replace(/\.[^.]+$/, ''), notes:'', createdAt: Date.now(), blob });
+      try {
+        const { default: JSZip } = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+        const zip = await JSZip.loadAsync(file);
+        let addedCount = 0;
+        
+        for (const [path, entry] of Object.entries(zip.files)){
+          if (entry.dir) continue;
+          const ext = path.split('.').pop().toLowerCase();
+          if (!['png','jpg','jpeg','webp','gif'].includes(ext)) continue;
+          
+          try {
+            const blob = new Blob([await entry.async('arraybuffer')], { type: `image/${ext==='jpg'?'jpeg':ext}` });
+            await addPhoto({ title: path.replace(/\.[^.]+$/, ''), notes:'', createdAt: Date.now(), blob });
+            addedCount++;
+          } catch (error) {
+            console.error('Error adding photo from zip:', error, path);
+          }
+        }
+        
+        allPhotos = await getAll();
+        render();
+        importInput.value = '';
+        
+        if (addedCount > 0) {
+          alert(`Berhasil menambahkan ${addedCount} foto dari file ZIP.`);
+        } else {
+          alert('Tidak ada foto yang dapat ditambahkan dari file ZIP.');
+        }
+      } catch (error) {
+        console.error('Error importing zip:', error);
+        alert('Terjadi kesalahan saat mengimpor file ZIP. Silakan coba lagi.');
       }
-      allPhotos = await getAll();
-      render();
-      importInput.value = '';
     });
 
     // Key modal event handlers
@@ -718,7 +879,23 @@
     mobileLoadImgBB.addEventListener('click', showImgBBModal);
 
     // Initial load
-    (async ()=>{ allPhotos = await getAll(); render(); })();
+    (async ()=>{ 
+      try {
+        allPhotos = await getAll(); 
+        await render(); 
+      } catch (error) {
+        console.error('Error during initial load:', error);
+        gallery.innerHTML = `
+          <div class="empty-state col-span-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.966-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+            <h3 class="text-lg font-medium mb-2">Terjadi Kesalahan</h3>
+            <p class="text-sm">Gagal memuat foto. Silakan refresh halaman.</p>
+          </div>
+        `;
+      }
+    })();
   </script>
 </body>
-          </html>
+            </html>
