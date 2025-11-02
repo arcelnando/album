@@ -1,40 +1,140 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BENJAMIN STORE</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cek Gay 🌈</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      width: 100%;
-      height: 100%;
-      font-family: 'Share Tech Mono', monospace;
-      overflow: hidden;
-      background: url('https://i.ibb.co.com/8LPpGfCr/IMG-20251007-173154.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
-    #intro {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      min-height: 100vh;
+      margin: 0;
     }
-    #intro h1 {
-      font-size: 3em;
-      background: linear-gradient(90deg, #ff00cc, #00ffff, #ff00cc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .container {
+      background: rgba(25, 25, 25, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      width: 90%;
+      max-width: 400px;
       text-align: center;
-      animation: flicker 2s infinite alternate;
+      animation: fadeIn 1s ease;
+    }
+    h2 {
+      color: #ff66c4;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      text-align: center;
+      background: #222;
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    button {
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+    .result {
+      margin-top: 20px;
+      background: #121212;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+    }
+    .bar {
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 15px;
+      margin: 10px 0;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      transition: width 1s ease;
+    }
+    .footer {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🌈 Cek Gay BY Celz 🌈</h2>
+    <p>Masukkan Nama Kamu </p>
+    <input type="text" id="nama" placeholder="Contoh: celz">
+    <br>
+    <button onclick="cekGay()">Cek Sekarang </button>
+
+    <div class="result" id="hasil" style="display:none;">
+      <h3>Hasil Cek Gay 🌈</h3>
+      <p><b>Nama:</b> <span id="hasilNama"></span></p>
+      <p><b>Persentase Gay:</b> <span id="persen"></span></p>
+      <p><b>Level Rainbow:</b></p>
+      <div class="bar"><div class="bar-fill" id="bar"></div></div>
+      <p><b>Keterangan:</b> <span id="ket"></span></p>
+    </div>
+
+  <script>
+    function cekGay() {
+      const nama = document.getElementById("nama").value.trim();
+      if (nama === "") {
+        alert("Masukkan nama terlebih dahulu!");
+        return;
+      }
+
+      const persenGay = Math.floor(Math.random() * 101); // random 0–100%
+      let ket = "";
+
+      if (persenGay <= 20) ket = "Masih aman 😎";
+      else if (persenGay <= 40) ket = "Bibit Gay🌈";
+      else if (persenGay <= 60) ket = "Sedikit Gay 💅";
+      else if (persenGay <= 80) ket = "Gay Tolol 🌸";
+      else ket = "Udah Ga Ketolong 🌈🔥";
+
+      const hasil = document.getElementById("hasil");
+      const bar = document.getElementById("bar");
+
+      document.getElementById("hasilNama").innerText = nama;
+      document.getElementById("persen").innerText = persenGay + "% ☀️";
+      document.getElementById("ket").innerHTML = `<span style='color:#ff66c4;'>${ket}</span>`;
+      hasil.style.display = "block";
+
+      // animasi bar
+      bar.style.width = "0%";
+      setTimeout(() => { bar.style.width = persenGay + "%"; }, 200);
+    }
+  </script>
+</body>
+</html>      animation: flicker 2s infinite alternate;
     }
     @keyframes flicker {
       0% { opacity: 1; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
