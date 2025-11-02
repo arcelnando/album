@@ -75,11 +75,6 @@
       background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
       transition: width 1s ease;
     }
-    .footer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #aaa;
-    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -89,10 +84,10 @@
 <body>
   <div class="container">
     <h2>🌈 Cek Gay BY Celz 🌈</h2>
-    <p>Masukkan Nama Kamu </p>
+    <p>Masukkan Nama Kamu</p>
     <input type="text" id="nama" placeholder="Contoh: celz">
     <br>
-    <button onclick="cekGay()">Cek Sekarang </button>
+    <button onclick="cekGay()">Cek Sekarang</button>
 
     <div class="result" id="hasil" style="display:none;">
       <h3>Hasil Cek Gay 🌈</h3>
@@ -102,18 +97,36 @@
       <div class="bar"><div class="bar-fill" id="bar"></div></div>
       <p><b>Keterangan:</b> <span id="ket"></span></p>
     </div>
+  </div>
 
   <script>
+    function hashNama(nama) {
+      let hash = 0;
+      for (let i = 0; i < nama.length; i++) {
+        hash = (hash << 5) - hash + nama.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash);
+    }
+
     function cekGay() {
-      const nama = document.getElementById("nama").value.trim();
+      const nama = document.getElementById("nama").value.trim().toLowerCase();
       if (nama === "") {
         alert("Masukkan nama terlebih dahulu!");
         return;
       }
 
-      const persenGay = Math.floor(Math.random() * 101); // random 0–100%
-      let ket = "";
+      // Daftar nama yang hasilnya harus 0%
+      const namaSpesial = ["nando", "celz", "marcel", "marsel"];
 
+      let persenGay = 0;
+      if (namaSpesial.includes(nama)) {
+        persenGay = 0; // selalu 0%
+      } else {
+        persenGay = hashNama(nama) % 101; // hasil tetap tapi bisa 0–100%
+      }
+
+      let ket = "";
       if (persenGay <= 20) ket = "Masih aman 😎";
       else if (persenGay <= 40) ket = "Bibit Gay🌈";
       else if (persenGay <= 60) ket = "Sedikit Gay 💅";
@@ -128,7 +141,6 @@
       document.getElementById("ket").innerHTML = `<span style='color:#ff66c4;'>${ket}</span>`;
       hasil.style.display = "block";
 
-      // animasi bar
       bar.style.width = "0%";
       setTimeout(() => { bar.style.width = persenGay + "%"; }, 200);
     }
