@@ -1,149 +1,366 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cek Gay 🌈</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: rgba(25, 25, 25, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
-      padding: 25px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      animation: fadeIn 1s ease;
-    }
-    h2 {
-      color: #ff66c4;
-      margin-bottom: 20px;
-    }
-    input {
-      width: 90%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      outline: none;
-      text-align: center;
-      background: #222;
-      color: #fff;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
-    button {
-      background: linear-gradient(90deg, #ff00cc, #3333ff);
-      border: none;
-      border-radius: 30px;
-      color: white;
-      padding: 12px 25px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
-    }
-    .result {
-      margin-top: 20px;
-      background: #121212;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
-    }
-    .bar {
-      background: #333;
-      border-radius: 10px;
-      overflow: hidden;
-      height: 15px;
-      margin: 10px 0;
-    }
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-      transition: width 1s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLX-14 ULTRA PRO | MAXIMUM EDITION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+        :root {
+            --bg: #030406;
+            --glass: rgba(255, 255, 255, 0.03);
+            --accent: #3b82f6;
+            --danger: #ff0055;
+            --success: #10b981;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            color: #f1f5f9; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .font-cyber { font-family: 'Orbitron', sans-serif; }
+
+        /* SPLASH SCREEN */
+        #splash {
+            position: fixed; inset: 0; z-index: 999; background: #000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .loader-ring {
+            width: 70px; height: 70px; border: 3px solid transparent;
+            border-top-color: var(--accent); border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes rgbFlow {
+            0% { color: #ff0055; text-shadow: 0 0 20px #ff0055aa; }
+            33% { color: #00ff99; text-shadow: 0 0 20px #00ff99aa; }
+            66% { color: #0088ff; text-shadow: 0 0 20px #0088ffaa; }
+            100% { color: #ff0055; text-shadow: 0 0 20px #ff0055aa; }
+        }
+        .rgb-text { animation: rgbFlow 6s infinite linear; }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(50px);
+            border-radius: 32px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .log-item-master {
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            border-left: 4px solid var(--danger);
+            border-radius: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .log-item-master:active { background: rgba(255, 255, 255, 0.12); transform: scale(0.97); }
+
+        .input-cyber {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 16px 20px;
+            border-radius: 20px;
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+            color: white;
+            transition: 0.3s;
+        }
+        .input-cyber:focus { border-color: var(--accent); box-shadow: 0 0 25px rgba(59, 130, 246, 0.2); }
+
+        .nav-active { color: white !important; opacity: 1 !important; filter: drop-shadow(0 0 15px white); transform: translateY(-5px); }
+        .nav-btn { transition: all 0.4s ease; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); filter: blur(15px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        .animate-view { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        #content-view::-webkit-scrollbar { width: 0; }
+        .hidden { display: none; }
+        .victim-photo { width: 100%; height: 160px; border-radius: 18px; object-fit: cover; margin-top: 15px; border: 1px solid rgba(255,255,255,0.15); }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <h2>🌈 Cek Gay BY Celz 🌈</h2>
-    <p>Masukkan Nama Kamu</p>
-    <input type="text" id="nama" placeholder="Contoh: celz">
-    <br>
-    <button onclick="cekGay()">Cek Sekarang</button>
-
-    <div class="result" id="hasil" style="display:none;">
-      <h3>Hasil Cek Gay 🌈</h3>
-      <p><b>Nama:</b> <span id="hasilNama"></span></p>
-      <p><b>Persentase Gay:</b> <span id="persen"></span></p>
-      <p><b>Level Rainbow:</b></p>
-      <div class="bar"><div class="bar-fill" id="bar"></div></div>
-      <p><b>Keterangan:</b> <span id="ket"></span></p>
+<body class="max-w-md mx-auto relative flex flex-col">
+    
+    <div id="splash">
+        <div class="loader-ring mb-8"></div>
+        <h1 class="font-cyber text-4xl font-black tracking-[0.4em] rgb-text">CLX-14</h1>
+        <p class="text-[10px] text-gray-500 tracking-[0.8em] mt-6 uppercase font-bold">PRODUCT BY CLXDEV</p>
     </div>
-  </div>
 
-  <script>
-    function hashNama(nama) {
-      let hash = 0;
-      for (let i = 0; i < nama.length; i++) {
-        hash = (hash << 5) - hash + nama.charCodeAt(i);
-        hash |= 0;
-      }
-      return Math.abs(hash);
-    }
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_50%_-10%,#111_0%,transparent_70%)] pointer-events-none"></div>
 
-    function cekGay() {
-      const nama = document.getElementById("nama").value.trim().toLowerCase();
-      if (nama === "") {
-        alert("Masukkan nama terlebih dahulu!");
-        return;
-      }
+    <section id="login-screen" class="fixed inset-0 z-[100] bg-[#030406] flex flex-col justify-center px-10 hidden">
+        <div class="text-center mb-16">
+            <h1 class="font-cyber text-6xl italic tracking-tighter rgb-text">CLX-14</h1>
+            <p class="text-[10px] tracking-[0.8em] text-gray-600 mt-4 uppercase font-black">Authorized Personnel Only</p>
+        </div>
+        <div class="space-y-5">
+            <input type="text" id="login-user" placeholder="CLIENT ID" class="input-cyber uppercase text-center font-bold">
+            <input type="password" id="login-pass" placeholder="ACCESS KEY" class="input-cyber text-center font-bold">
+            <button onclick="attemptLogin()" class="w-full bg-white/5 border border-white/10 hover:bg-white/10 py-5 rounded-2xl font-black tracking-[0.3em] transition-all active:scale-95 text-sm mt-4">INITIALIZE</button>
+        </div>
+    </section>
 
-      // Daftar nama yang hasilnya harus 0%
-      const namaSpesial = ["nando", "celz", "marcel", "marsel"];
+    <div id="main-app" class="hidden flex-grow flex flex-col z-10 h-screen overflow-hidden">
+        <header class="p-8 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 p-[2px]">
+                    <div class="w-full h-full rounded-full bg-[#030406] flex items-center justify-center text-blue-400">
+                        <i data-lucide="shield" class="w-6 h-6"></i>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="font-cyber text-xl italic rgb-text" id="user-display">---</h2>
+                    <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest" id="real-clock">00:00:00</p>
+                </div>
+            </div>
+            <button onclick="logout()" class="text-gray-600 hover:text-red-500 transition-all active:scale-90"><i data-lucide="power" class="w-8 h-8"></i></button>
+        </header>
 
-      let persenGay = 0;
-      if (namaSpesial.includes(nama)) {
-        persenGay = 0; // selalu 0%
-      } else {
-        persenGay = hashNama(nama) % 101; // hasil tetap tapi bisa 0–100%
-      }
+        <main id="content-view" class="flex-grow px-8 overflow-y-auto pb-40 pt-4"></main>
 
-      let ket = "";
-      if (persenGay <= 20) ket = "Masih aman 😎";
-      else if (persenGay <= 40) ket = "Bibit Gay🌈";
-      else if (persenGay <= 60) ket = "Sedikit Gay 💅";
-      else if (persenGay <= 80) ket = "Gay Tolol 🌸";
-      else ket = "Udah Ga Ketolong 🌈🔥";
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-black/80 backdrop-blur-3xl px-8 py-8 flex justify-around items-center rounded-t-[50px] border-t border-white/5">
+            <button onclick="navigate('home')" id="nav-home" class="nav-btn text-gray-600 opacity-40"><i data-lucide="layout-grid" class="w-7 h-7"></i></button>
+            <button onclick="navigate('logs')" id="nav-logs" class="nav-btn text-gray-600 opacity-40"><i data-lucide="database" class="w-7 h-7"></i></button>
+            <button onclick="navigate('vpn')" id="nav-vpn" class="nav-btn text-gray-600 opacity-40"><i data-lucide="shield-check" class="w-7 h-7"></i></button>
+            <button onclick="navigate('contact')" id="nav-contact" class="nav-btn text-gray-600 opacity-40"><i data-lucide="user" class="w-7 h-7"></i></button>
+        </nav>
+    </div>
 
-      const hasil = document.getElementById("hasil");
-      const bar = document.getElementById("bar");
+    <script>
+        const BASE_DB_URL = "https://clx---14-default-rtdb.asia-southeast1.firebasedatabase.app/targets";
+        
+        let session = {
+            user: localStorage.getItem('clx_user') || "GUEST",
+            isAuth: localStorage.getItem('clx_auth_pro') === 'true'
+        };
 
-      document.getElementById("hasilNama").innerText = nama;
-      document.getElementById("persen").innerText = persenGay + "% ☀️";
-      document.getElementById("ket").innerHTML = `<span style='color:#ff66c4;'>${ket}</span>`;
-      hasil.style.display = "block";
+        const getDbUrl = () => `${BASE_DB_URL}/${session.user}.json`;
 
-      bar.style.width = "0%";
-      setTimeout(() => { bar.style.width = persenGay + "%"; }, 200);
-    }
-  </script>
+        let config = JSON.parse(localStorage.getItem('clx_pro_data')) || {
+            trap_link: "https://allskandal.vercel.app/",
+            labels: {}
+        };
+
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('splash').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash').style.visibility = 'hidden';
+                    if(session.isAuth) startApp();
+                    else document.getElementById('login-screen').classList.remove('hidden');
+                }, 800);
+            }, 2500);
+
+            updateClock();
+            setInterval(updateClock, 1000);
+            lucide.createIcons();
+        }
+
+        function updateClock() {
+            const timeStr = new Date().toLocaleTimeString('en-GB', { hour12: false });
+            if(document.getElementById('real-clock')) document.getElementById('real-clock').innerText = timeStr;
+        }
+
+        function attemptLogin() {
+            const user = document.getElementById('login-user').value.toUpperCase().replace(/\s/g, '');
+            const pass = document.getElementById('login-pass').value;
+
+            // DEV: ARCELZ / 4rC3LZ | CLIENT: ID > 2 & PW clx14pro
+            // EXPIRED CHECK (YYYY-MM-DD)
+            const limitDate = "2026-12-30"; 
+            const today = new Date().toISOString().split('T')[0];
+
+            if (today > limitDate) {
+                alert("LICENSE EXPIRED: HUBUNGI ARCELZ");
+                return;
+            }
+
+            if ((user === "ARCELZ" && pass === "4rC3LZ") || (user.length > 2 && pass === "clx14pro")) {
+                localStorage.setItem('clx_auth_pro', 'true');
+                localStorage.setItem('clx_user', user);
+                localStorage.setItem('clx_exp', limitDate);
+                session.user = user;
+                startApp();
+            } else { 
+                alert("ACCESS DENIED: KEY TIDAK VALID"); 
+            }
+        }
+
+        function startApp() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('user-display').innerText = session.user;
+            navigate('home');
+        }
+
+        function logout() { localStorage.clear(); location.reload(); }
+
+        function navigate(page) {
+            const view = document.getElementById('content-view');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-active'));
+            document.getElementById('nav-' + page).classList.add('nav-active');
+
+            let html = "";
+            switch(page) {
+                case 'home':
+                    html = `
+                        <div class="animate-view space-y-8">
+                            <div class="glass-panel p-7 space-y-5">
+                                <p class="text-[11px] font-bold text-blue-500 uppercase tracking-widest">Master Trap Point</p>
+                                <input type="text" id="trap-edit" value="${config.trap_link}" class="input-cyber font-mono text-[13px] text-blue-400">
+                                <button onclick="updateTrap()" class="w-full bg-white/5 py-4 rounded-2xl font-bold uppercase tracking-widest active:bg-white/10 text-xs">Commit Link</button>
+                            </div>
+                            <div class="flex justify-between items-center px-2">
+                                <h3 class="font-cyber text-[12px] tracking-widest text-red-500 uppercase font-black">Intercepts: ${session.user}</h3>
+                                <button onclick="fetchVictims()" class="active:rotate-180 transition-all duration-500"><i data-lucide="refresh-cw" class="w-5 h-5 text-gray-500"></i></button>
+                            </div>
+                            <div id="log-list" class="space-y-6 pb-20"></div>
+                        </div>`;
+                    setTimeout(fetchVictims, 300);
+                    break;
+
+                case 'logs':
+                    const exp = localStorage.getItem('clx_exp') || "---";
+                    html = `
+                        <div class="animate-view space-y-6">
+                            <div class="glass-panel p-7 space-y-6">
+                                <p class="text-[11px] font-bold text-blue-400 uppercase tracking-widest">Mainframe Session</p>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between p-4 bg-white/5 rounded-2xl border border-white/5 text-sm"><span>ID</span><span class="text-blue-400 font-bold">${session.user}</span></div>
+                                    <div class="flex justify-between p-4 bg-white/5 rounded-2xl border border-white/5 text-sm"><span>STATUS</span><span class="text-emerald-500 font-bold">PREMIUM</span></div>
+                                    <div class="flex justify-between p-4 bg-white/5 rounded-2xl border border-white/5 text-sm"><span>EXPIRED</span><span class="text-red-500 font-bold">${exp}</span></div>
+                                </div>
+                                <button onclick="clearLabels()" class="w-full py-4 text-red-500/60 text-[10px] font-black uppercase tracking-widest mt-4">Flush Local Labels</button>
+                            </div>
+                        </div>`;
+                    break;
+
+                case 'vpn':
+                    html = `
+                        <div class="animate-view space-y-8 text-center pt-10">
+                            <div class="w-24 h-24 mx-auto bg-emerald-500/10 rounded-full flex items-center justify-center border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                                <i data-lucide="shield-check" class="text-emerald-500 w-12 h-12"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cyber text-2xl text-emerald-500 italic">SECURE NODE</h3>
+                                <p class="text-[11px] text-gray-500 tracking-[0.4em] mt-3 uppercase font-bold">Status: Encrypted AES-256</p>
+                            </div>
+                            <div class="glass-panel p-6 space-y-4 text-left font-mono text-[11px]">
+                                <div class="flex justify-between"><span class="text-gray-600">Virtual Node</span><span class="text-white font-bold">SGP-Premium-01</span></div>
+                                <div class="flex justify-between"><span class="text-gray-600">Latency</span><span class="text-emerald-500 font-bold">14ms</span></div>
+                            </div>
+                        </div>`;
+                    break;
+
+                case 'contact':
+                    const ram = navigator.deviceMemory ? navigator.deviceMemory + "GB" : "---";
+                    html = `
+                        <div class="animate-view space-y-8">
+                            <div class="glass-panel p-7 space-y-5">
+                                <p class="text-[11px] font-bold text-purple-400 uppercase tracking-widest">Terminal Profile</p>
+                                <div class="space-y-3 text-[12px] font-mono">
+                                    <div class="flex justify-between border-b border-white/5 pb-2"><span class="text-gray-500">OPERATOR</span><span class="text-white">${session.user}</span></div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2"><span class="text-gray-500">HW-MEM</span><span class="text-white">${ram}</span></div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2"><span class="text-gray-500">PLATFORM</span><span class="text-white">${navigator.platform}</span></div>
+                                </div>
+                            </div>
+                            <div class="space-y-4 px-1">
+                                <a href="https://wa.me/6281511214289" target="_blank" class="glass-panel p-6 flex justify-between items-center group active:scale-95 transition-all">
+                                    <div class="flex items-center gap-5"><i data-lucide="message-circle" class="w-6 h-6 text-emerald-500"></i><span class="text-sm font-black uppercase tracking-widest">WhatsApp Engineering</span></div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-700"></i>
+                                </a>
+                                <a href="https://www.instagram.com/krisisident?igsh=cm5pa2ZtcmVnMDRx" target="_blank" class="glass-panel p-6 flex justify-between items-center group active:scale-95 transition-all">
+                                    <div class="flex items-center gap-5"><i data-lucide="instagram" class="w-6 h-6 text-pink-500"></i><span class="text-sm font-black uppercase tracking-widest">Instagram Official</span></div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-700"></i>
+                                </a>
+                                <a href="https://facebook.com/KrisisIdent" target="_blank" class="glass-panel p-6 flex justify-between items-center group active:scale-95 transition-all">
+                                    <div class="flex items-center gap-5"><i data-lucide="facebook" class="w-6 h-6 text-blue-500"></i><span class="text-sm font-black uppercase tracking-widest">Facebook Mainframe</span></div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-700"></i>
+                                </a>
+                            </div>
+                        </div>`;
+                    break;
+            }
+            view.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        async function fetchVictims() {
+            const list = document.getElementById('log-list');
+            if(!list) return;
+            try {
+                const res = await fetch(getDbUrl());
+                const data = await res.json();
+                if(!data) { 
+                    list.innerHTML = `<div class="py-32 text-center"><p class="text-[11px] text-gray-700 uppercase tracking-[0.6em] font-black italic">Database Empty</p></div>`; 
+                    return; 
+                }
+                let html = "";
+                Object.keys(data).reverse().forEach(k => {
+                    const v = data[k];
+                    const nick = config.labels[v.ip] || "Unknown Node";
+                    const fullLogText = `[NODE INTERCEPTED]\nNAMA: ${nick}\nIP: ${v.ip}\nLOKASI: ${v.lokasi || '-'}\nPERANGKAT: ${v.perangkat || '-'}\nOS: ${v.os || '-'}\nWAKTU: ${v.waktu}`;
+
+                    html += `
+                        <div class="log-item-master p-6" onclick="copyLog(\`${fullLogText}\`)">
+                            <div class="flex justify-between items-start mb-5">
+                                <div class="flex items-center gap-3"><div class="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_#ef4444]"></div><span class="text-sm font-black text-red-500 uppercase tracking-widest">${nick}</span></div>
+                                <button onclick="event.stopPropagation(); setNodeLabel('${v.ip}')" class="text-[10px] bg-white/5 px-3 py-2 rounded-xl border border-white/10 uppercase font-black text-gray-500 active:text-white">Label</button>
+                            </div>
+                            
+                            ${v.Foto_1 ? `<img src="${v.Foto_1}" class="victim-photo">` : ''}
+                            ${v.Foto_2 ? `<img src="${v.Foto_2}" class="victim-photo mt-3">` : ''}
+
+                            <div class="space-y-3 font-mono text-[11px] mt-6 border-t border-white/5 pt-4">
+                                <div class="flex justify-between"><span class="text-blue-500 opacity-60 uppercase">IP Addr:</span><span class="text-gray-300 font-bold">${v.ip || '---'}</span></div>
+                                <div class="flex justify-between"><span class="text-blue-500 opacity-60 uppercase">Location:</span><span class="text-gray-300 text-right truncate max-w-[160px] uppercase font-bold">${v.lokasi || '---'}</span></div>
+                                <div class="flex justify-between"><span class="text-blue-500 opacity-60 uppercase">System:</span><span class="text-gray-300 text-right uppercase font-bold">${v.os || '-'}</span></div>
+                            </div>
+                            <p class="text-[8px] text-gray-700 text-right font-black uppercase tracking-[0.2em] mt-4 italic">Tap to intercept all logs</p>
+                        </div>`;
+                });
+                list.innerHTML = html;
+            } catch (e) { 
+                list.innerHTML = `<div class="py-20 text-center"><p class="text-red-500 text-[11px] font-black uppercase tracking-widest animate-bounce">SYNC FAILED: CHECK FIREBASE</p></div>`; 
+            }
+        }
+
+        function updateTrap() {
+            config.trap_link = document.getElementById('trap-edit').value;
+            localStorage.setItem('clx_pro_data', JSON.stringify(config));
+            alert("MAINFRAME: LINK COMMITTED");
+        }
+
+        function setNodeLabel(ip) {
+            const label = prompt("Set Identity (e.g Penipu / Target):");
+            if(label) {
+                config.labels[ip] = label;
+                localStorage.setItem('clx_pro_data', JSON.stringify(config));
+                fetchVictims();
+            }
+        }
+
+        function clearLabels() {
+            if(confirm("Flush all nick data?")) { config.labels = {}; localStorage.setItem('clx_pro_data', JSON.stringify(config)); navigate('logs'); }
+        }
+
+        function copyLog(text) {
+            navigator.clipboard.writeText(text);
+            alert("LOG INTERCEPTED & COPIED");
+        }
+    </script>
 </body>
 </html>
